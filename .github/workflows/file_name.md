@@ -33,5 +33,4 @@ jobs:
             git add commit_log.txt
             git commit -m "Automated dynamic commit $i of $NUM_COMMITS [skip ci]"
           done
-
           git push
