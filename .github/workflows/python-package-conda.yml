@@ -19,6 +19,8 @@ jobs:
           token: ${{ secrets.MY_PAT }}
 
       - name: Run Dynamic Commits
+
+      
         run: |
           git config --global user.name "HemmatQachmas"
           git config --global user.email "qachmnas.aslam@gmail.com"
