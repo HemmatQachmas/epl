@@ -1,35 +1,35 @@
-name: check the commits
+name: Check the Commits
+
 on:
   schedule:
-    - cron: '0 0 * * *' 
-  push:
-    branches:
-      - main
-  workflow_dispatch: 
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   make-commits:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_PAT }}
 
       - name: Run Dynamic Commits
         run: |
           git config --global user.name "HemmatQachmas"
           git config --global user.email "qachmnas.aslam@gmail.com"
-
+          
           NUM_COMMITS=$(( ( RANDOM % 2 ) + 5 ))
-
           echo "Starting $NUM_COMMITS dynamic commits today..."
-
+          
           for ((i=1; i<=NUM_COMMITS; i++))
           do
             echo "Dynamic Commit #$i on $(date)" >> commit_log.txt
             git add commit_log.txt
-            # REMOVED [skip ci] to allow the workflow to trigger on push
             git commit "-m" "Automated dynamic commit $i of $NUM_COMMITS"
           done
-          git push
+          
+          git push origin main
